@@ -8,8 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Alpine.js & Lucide Icons -->
+    <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <script>
@@ -35,7 +36,7 @@
     </script>
     <style>[x-cloak] { display: none !important; }</style>
 </head>
-<body class="bg-white text-farmhill-charcoal font-sans antialiased" x-data="farmhillApp()" x-init="initIcons()">
+<body class="bg-white text-farmhill-charcoal font-sans antialiased" x-data="farmhillApp()">
 
     <!-- TOP ANNOUNCEMENT BAR -->
     <div class="bg-farmhill-olive-dark text-white text-xs font-medium py-2.5 px-4 text-center">
@@ -64,31 +65,28 @@
 
                 <!-- Navigation Categories -->
                 <nav class="hidden lg:flex space-x-1 bg-farmhill-cream p-1.5 rounded-2xl border border-farmhill-olive/10">
-                    <button @click="activeCategory = 'ALL'" :class="activeCategory === 'ALL' ? 'bg-farmhill-olive text-white shadow-sm' : 'text-gray-600 hover:text-farmhill-olive'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">Semua</button>
-                    <button @click="activeCategory = 'PROMO'" :class="activeCategory === 'PROMO' ? 'bg-farmhill-gourd text-white shadow-sm' : 'text-gray-600'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">🔥 Promo Pay Day</button>
-                    <button @click="activeCategory = 'MELON'" :class="activeCategory === 'MELON' ? 'bg-farmhill-olive text-white shadow-sm' : 'text-gray-600'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">🍈 Melon</button>
-                    <button @click="activeCategory = 'FRUIT'" :class="activeCategory === 'FRUIT' ? 'bg-farmhill-olive text-white shadow-sm' : 'text-gray-600'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">🍇 Buah Segar</button>
-                    <button @click="activeCategory = 'SALAD_JUICE'" :class="activeCategory === 'SALAD_JUICE' ? 'bg-farmhill-olive text-white shadow-sm' : 'text-gray-600'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">🩵 Salad & Jus</button>
-                    <button @click="activeCategory = 'FROZEN'" :class="activeCategory === 'FROZEN' ? 'bg-farmhill-olive text-white shadow-sm' : 'text-gray-600'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">🍟 Frozen</button>
+                    <button type="button" @click="activeCategory = 'ALL'" :class="activeCategory === 'ALL' ? 'bg-farmhill-olive text-white shadow-sm' : 'text-gray-600 hover:text-farmhill-olive'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">Semua</button>
+                    <button type="button" @click="activeCategory = 'PROMO'" :class="activeCategory === 'PROMO' ? 'bg-farmhill-gourd text-white shadow-sm' : 'text-gray-600'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">🔥 Promo Pay Day</button>
+                    <button type="button" @click="activeCategory = 'MELON'" :class="activeCategory === 'MELON' ? 'bg-farmhill-olive text-white shadow-sm' : 'text-gray-600'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">🍈 Melon</button>
+                    <button type="button" @click="activeCategory = 'FRUIT'" :class="activeCategory === 'FRUIT' ? 'bg-farmhill-olive text-white shadow-sm' : 'text-gray-600'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">🍇 Buah Segar</button>
+                    <button type="button" @click="activeCategory = 'SALAD_JUICE'" :class="activeCategory === 'SALAD_JUICE' ? 'bg-farmhill-olive text-white shadow-sm' : 'text-gray-600'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">🩵 Salad & Jus</button>
+                    <button type="button" @click="activeCategory = 'FROZEN'" :class="activeCategory === 'FROZEN' ? 'bg-farmhill-olive text-white shadow-sm' : 'text-gray-600'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">🍟 Frozen</button>
                 </nav>
 
                 <!-- Controls -->
                 <div class="flex items-center space-x-3">
                     <div class="relative" x-data="{ open: false }">
-                        <button @click="open = !open" class="flex items-center space-x-2 bg-farmhill-cream border border-farmhill-olive/20 text-farmhill-olive px-3.5 py-2 rounded-xl text-xs font-bold">
-                            <i data-lucide="map-pin" class="w-4 h-4"></i>
-                            <span x-text="selectedHub">Semarang</span>
-                            <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+                        <button type="button" @click="open = !open" class="flex items-center space-x-2 bg-farmhill-cream border border-farmhill-olive/20 text-farmhill-olive px-3.5 py-2 rounded-xl text-xs font-bold">
+                            <span>Hub: <strong x-text="selectedHub"></strong></span>
                         </button>
                         <div x-show="open" @click.outside="open = false" x-cloak class="absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-2xl border border-gray-100 py-2 z-50">
-                            <button @click="selectedHub = 'Semarang'; open = false" class="w-full text-left px-4 py-2 text-xs font-bold hover:bg-farmhill-cream">Semarang Hub</button>
-                            <button @click="selectedHub = 'Solo'; open = false" class="w-full text-left px-4 py-2 text-xs font-bold hover:bg-farmhill-cream">Solo Hub</button>
+                            <button type="button" @click="selectedHub = 'Semarang'; open = false" class="w-full text-left px-4 py-2 text-xs font-bold hover:bg-farmhill-cream">Semarang Hub</button>
+                            <button type="button" @click="selectedHub = 'Solo'; open = false" class="w-full text-left px-4 py-2 text-xs font-bold hover:bg-farmhill-cream">Solo Hub</button>
                         </div>
                     </div>
 
-                    <button @click="isCartOpen = true" class="relative bg-farmhill-olive text-white p-2.5 rounded-xl shadow-md hover:bg-farmhill-olive-dark transition-all">
-                        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
-                        <span x-show="cart.length > 0" x-text="cart.reduce((t, i) => t + i.qty, 0)" class="absolute -top-1.5 -right-1.5 w-5 h-5 bg-farmhill-gourd text-white text-[10px] font-black rounded-full flex items-center justify-center border-2 border-white">0</span>
+                    <button type="button" @click="isCartOpen = true" class="relative bg-farmhill-olive text-white px-3.5 py-2 rounded-xl text-xs font-bold shadow-md">
+                        🛒 Keranjang (<span x-text="cart.reduce((t, i) => t + i.qty, 0)"></span>)
                     </button>
                 </div>
             </div>
@@ -96,7 +94,7 @@
     </header>
 
     <!-- HERO BANNER -->
-    <section class="bg-farmhill-cream py-12 border-b border-gray-100">
+    <section class="bg-farmhill-cream py-10 border-b border-gray-100">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid lg:grid-cols-12 gap-8 items-center">
                 <div class="lg:col-span-7 space-y-4">
@@ -108,19 +106,12 @@
                     <span class="bg-farmhill-gourd text-white text-[10px] font-black uppercase px-3 py-1 rounded-full">PROMO PAY DAY SALE</span>
                     <h3 class="text-xl font-extrabold mt-2">Bundling Panen Raya 🍈</h3>
                     <div class="mt-3 space-y-2">
-                        <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl flex justify-between items-center text-xs border border-white/10">
+                        <div class="bg-white/10 p-3 rounded-2xl flex justify-between items-center text-xs border border-white/10">
                             <div>
                                 <div class="font-bold">Melon Elysia + Kelengkeng Bangkok</div>
                                 <div class="text-[10px] text-emerald-200">1 Melon + 500g Kelengkeng</div>
                             </div>
-                            <button @click="addToCart({id: 101, name: 'Promo: Melon Elysia + Kelengkeng Bangkok', price: 75000, category: 'PROMO', weight: '1 Paket', status: 'TERSEDIA'})" class="bg-farmhill-gourd px-3 py-1.5 rounded-xl font-bold text-white hover:bg-orange-600 transition-all">+ Rp 75rb</button>
-                        </div>
-                        <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl flex justify-between items-center text-xs border border-white/10">
-                            <div>
-                                <div class="font-bold">Melon Elysia (2 Buah)</div>
-                                <div class="text-[10px] text-emerald-200">2 Buah Fresh Harvest</div>
-                            </div>
-                            <button @click="addToCart({id: 102, name: 'Promo: Melon Elysia 2 Buah', price: 85000, category: 'PROMO', weight: '2 Buah', status: 'TERSEDIA'})" class="bg-farmhill-gourd px-3 py-1.5 rounded-xl font-bold text-white hover:bg-orange-600 transition-all">+ Rp 85rb</button>
+                            <button type="button" @click="addToCart({id: 101, name: 'Promo: Melon Elysia + Kelengkeng Bangkok', price: 75000, category: 'PROMO', weight: '1 Paket', status: 'TERSEDIA'})" class="bg-farmhill-gourd px-3 py-1.5 rounded-xl font-bold text-white">+ Rp 75rb</button>
                         </div>
                     </div>
                 </div>
@@ -135,7 +126,7 @@
                 <h2 class="text-2xl font-extrabold text-farmhill-olive-dark">Katalog Ready Stock Hari Ini</h2>
                 <div class="flex items-center space-x-2">
                     <span class="text-xs font-bold text-gray-500">Filter Stok:</span>
-                    <select x-model="stockFilter" class="bg-farmhill-cream border border-gray-200 text-xs font-bold rounded-xl px-3 py-2 text-farmhill-charcoal focus:outline-none">
+                    <select x-model="stockFilter" class="bg-farmhill-cream border border-gray-200 text-xs font-bold rounded-xl px-3 py-2 text-farmhill-charcoal">
                         <option value="ALL">Semua</option>
                         <option value="TERSEDIA">Tersedia</option>
                         <option value="MENIPIS">Stok Menipis 🔥</option>
@@ -156,7 +147,7 @@
                         </div>
                         <div class="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between">
                             <span class="text-sm font-extrabold text-farmhill-olive-dark" x-text="formatRupiah(product.price)"></span>
-                            <button @click="addToCart(product)" class="bg-farmhill-olive hover:bg-farmhill-olive-dark text-white px-3.5 py-2 rounded-xl text-xs font-bold shadow-sm transition-all">+ Beli</button>
+                            <button type="button" @click="addToCart(product)" class="bg-farmhill-olive hover:bg-farmhill-olive-dark text-white px-3.5 py-2 rounded-xl text-xs font-bold shadow-sm transition-all">+ Beli</button>
                         </div>
                     </div>
                 </template>
@@ -167,11 +158,11 @@
     <!-- CART DRAWER -->
     <div x-show="isCartOpen" x-cloak class="relative z-50">
         <div class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm" @click="isCartOpen = false"></div>
-        <div class="fixed inset-y-0 right-0 w-full max-w-md bg-white shadow-2xl flex flex-col justify-between p-6">
+        <div class="fixed inset-y-0 right-0 w-full max-w-md bg-white shadow-2xl flex flex-col justify-between p-6 z-50">
             <div>
                 <div class="flex justify-between items-center border-b pb-4">
                     <h3 class="font-bold text-lg text-farmhill-olive-dark">Keranjang Belanja</h3>
-                    <button @click="isCartOpen = false" class="text-gray-400 hover:text-gray-600"><i data-lucide="x" class="w-6 h-6"></i></button>
+                    <button type="button" @click="isCartOpen = false" class="text-gray-400 hover:text-gray-600">✕</button>
                 </div>
                 <div class="py-4 space-y-3 overflow-y-auto max-h-[60vh]">
                     <template x-for="item in cart" :key="item.id">
@@ -181,9 +172,9 @@
                                 <div class="text-xs text-farmhill-olive font-bold mt-0.5" x-text="formatRupiah(item.price)"></div>
                             </div>
                             <div class="flex items-center space-x-2 bg-gray-50 px-2.5 py-1 rounded-xl border border-gray-200">
-                                <button @click="updateQty(item.id, -1)" class="font-bold text-gray-600 hover:text-farmhill-olive px-1">-</button>
+                                <button type="button" @click="updateQty(item.id, -1)" class="font-bold text-gray-600 px-1">-</button>
                                 <span class="text-xs font-bold px-1" x-text="item.qty"></span>
-                                <button @click="updateQty(item.id, 1)" class="font-bold text-gray-600 hover:text-farmhill-olive px-1">+</button>
+                                <button type="button" @click="updateQty(item.id, 1)" class="font-bold text-gray-600 px-1">+</button>
                             </div>
                         </div>
                     </template>
@@ -197,8 +188,7 @@
                     <span>Total:</span>
                     <span class="text-farmhill-olive" x-text="formatRupiah(cartTotal)"></span>
                 </div>
-                <button @click="checkoutWA()" :disabled="cart.length === 0" class="w-full bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white py-3 rounded-xl font-bold flex items-center justify-center space-x-2 transition-all shadow-md">
-                    <i data-lucide="message-square" class="w-4 h-4"></i>
+                <button type="button" @click="checkoutWA()" :disabled="cart.length === 0" class="w-full bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white py-3 rounded-xl font-bold flex items-center justify-center space-x-2 transition-all shadow-md">
                     <span>Pesan via WhatsApp Direct</span>
                 </button>
             </div>
@@ -206,14 +196,15 @@
     </div>
 
     <script>
-        function farmhillApp() {
-            return {
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('farmhillApp', () => ({
                 selectedHub: 'Semarang',
                 activeCategory: 'ALL',
                 stockFilter: 'ALL',
                 isCartOpen: false,
                 cart: [],
                 products: [
+                    { id: 101, name: 'Promo: Melon Elysia + Kelengkeng Bangkok', category: 'PROMO', weight: '1 Paket', price: 75000, status: 'TERSEDIA' },
                     { id: 1, name: 'Melon Elysia Premium', category: 'MELON', weight: 'Per Kg', price: 46000, status: 'TERSEDIA' },
                     { id: 2, name: 'Melon Midori Premium', category: 'MELON', weight: 'Per Kg', price: 46000, status: 'TERSEDIA' },
                     { id: 3, name: 'Melon Greeniesweet', category: 'MELON', weight: 'Per Kg', price: 46000, status: 'TERSEDIA' },
@@ -223,9 +214,6 @@
                     { id: 7, name: 'Anggur Hijau Shine Muscat', category: 'FRUIT', weight: '500 Gram', price: 35000, status: 'TERSEDIA' },
                     { id: 8, name: 'Frozen Durian Montong Palu', category: 'FROZEN', weight: '500 Gram', price: 95000, status: 'TERSEDIA' }
                 ],
-                initIcons() {
-                    setTimeout(() => lucide.createIcons(), 100);
-                },
                 get filteredProducts() {
                     return this.products.filter(p => {
                         const matchCat = (this.activeCategory === 'ALL' || p.category === this.activeCategory);
@@ -246,16 +234,20 @@
                         if (item.qty <= 0) this.cart = this.cart.filter(i => i.id !== id);
                     }
                 },
-                get cartTotal() { return this.cart.reduce((s, i) => s + (i.price * i.qty), 0); },
-                formatRupiah(n) { return 'Rp ' + n.toLocaleString('id-ID'); },
+                get cartTotal() { 
+                    return this.cart.reduce((s, i) => s + (i.price * i.qty), 0); 
+                },
+                formatRupiah(n) { 
+                    return 'Rp ' + n.toLocaleString('id-ID'); 
+                },
                 checkoutWA() {
                     let msg = `*Pesanan The Farmhill Store (${this.selectedHub} Hub)*\n\n`;
                     this.cart.forEach(i => msg += `• ${i.name} x${i.qty} = ${this.formatRupiah(i.price * i.qty)}\n`);
                     msg += `\n*Total Pembayaran:* ${this.formatRupiah(this.cartTotal)}`;
                     window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(msg)}`, '_blank');
                 }
-            }
-        }
+            }));
+        });
     </script>
 </body>
 </html>
