@@ -126,12 +126,13 @@
     </header>
 
     <!-- HERO BANNER SECTION -->
-    <section class="relative bg-farmhill-cream py-12 lg:py-16 border-b border-gray-100">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="relative bg-farmhill-cream py-12 lg:py-16 border-b border-gray-100 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3E5702_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid lg:grid-cols-12 gap-8 items-center">
                 
                 <div class="lg:col-span-7 space-y-5">
-                    <div class="inline-flex items-center space-x-2 bg-white px-3.5 py-1.5 rounded-full border border-farmhill-olive/20 text-farmhill-olive text-xs font-bold">
+                    <div class="inline-flex items-center space-x-2 bg-white px-3.5 py-1.5 rounded-full border border-farmhill-olive/20 text-farmhill-olive text-xs font-bold shadow-sm">
                         <span class="w-2 h-2 rounded-full bg-farmhill-gourd animate-ping"></span>
                         <span>Official Direct Selling Store — PT Kebun Bumi Lestari</span>
                     </div>
@@ -218,47 +219,46 @@
             <!-- PRODUCT GRID -->
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 <template x-for="product in filteredProducts" :key="product.id">
-                    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group p-4 border border-gray-100 relative">
+                    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group p-4 relative">
                         
-                        <!-- Badges -->
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="bg-farmhill-cream text-farmhill-olive text-[10px] font-black uppercase px-2.5 py-1 rounded-lg border border-farmhill-olive/10" x-text="product.category"></span>
+                        <!-- Product Image & Badges -->
+                        <div class="h-44 rounded-xl overflow-hidden relative mb-4 bg-gray-100">
+                            <img :src="product.image" :alt="product.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
                             
-                            <!-- Stock Status Badge -->
-                            <span :class="{
-                                'bg-emerald-100 text-emerald-800 border-emerald-200': product.status === 'TERSEDIA',
-                                'bg-amber-100 text-amber-800 border-amber-200': product.status === 'MENIPIS',
-                                'bg-rose-100 text-rose-800 border-rose-200': product.status === 'HABIS'
-                            }" class="text-[10px] font-bold px-2 py-0.5 rounded-md border flex items-center space-x-1">
-                                <span class="w-1.5 h-1.5 rounded-full" :class="{
-                                    'bg-emerald-500': product.status === 'TERSEDIA',
-                                    'bg-amber-500 animate-pulse': product.status === 'MENIPIS',
-                                    'bg-rose-500': product.status === 'HABIS'
-                                }"></span>
-                                <span x-text="product.status === 'MENIPIS' ? 'Stok Menipis (' + product.stock + ')' : product.status"></span>
-                            </span>
+                            <div class="absolute top-3 left-3">
+                                <span class="bg-white/90 backdrop-blur-md text-farmhill-olive text-[10px] font-black uppercase px-2.5 py-1 rounded-lg shadow-sm" x-text="product.category"></span>
+                            </div>
+
+                            <div class="absolute top-3 right-3">
+                                <span :class="{
+                                    'bg-emerald-500 text-white': product.status === 'TERSEDIA',
+                                    'bg-amber-500 text-white animate-pulse': product.status === 'MENIPIS',
+                                    'bg-rose-500 text-white': product.status === 'HABIS'
+                                }" class="text-[9px] font-extrabold px-2 py-0.5 rounded-md shadow-sm uppercase tracking-wide" x-text="product.status === 'MENIPIS' ? 'Menipis (' + product.stock + ')' : product.status"></span>
+                            </div>
                         </div>
 
                         <!-- Product Content -->
-                        <div class="my-2">
+                        <div class="mb-3">
                             <h3 class="font-bold text-gray-800 text-base group-hover:text-farmhill-olive transition-colors leading-snug" x-text="product.name"></h3>
-                            <div class="text-xs text-gray-400 mt-1 flex items-center space-x-2">
+                            <div class="text-xs text-gray-400 mt-1 flex items-center space-x-1.5">
                                 <i data-lucide="package" class="w-3.5 h-3.5"></i>
                                 <span x-text="product.weight"></span>
                             </div>
                         </div>
 
                         <!-- Price & Action -->
-                        <div class="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between">
+                        <div class="pt-3 border-t border-gray-100 flex items-center justify-between">
                             <div>
-                                <span class="text-[10px] text-gray-400 block font-semibold">Harga Hari Ini</span>
+                                <span class="text-[10px] text-gray-400 block font-semibold">Harga</span>
                                 <span class="text-base font-extrabold text-farmhill-olive-dark" x-text="formatRupiah(product.price)"></span>
                             </div>
                             
                             <button @click="addToCart(product)" 
                                     :disabled="product.status === 'HABIS'"
                                     :class="product.status === 'HABIS' ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-farmhill-olive hover:bg-farmhill-olive-dark text-white shadow-md'"
-                                    class="px-3 py-2 rounded-xl text-xs font-bold flex items-center space-x-1.5 transition-all">
+                                    class="px-3.5 py-2 rounded-xl text-xs font-bold flex items-center space-x-1.5 transition-all">
                                 <i data-lucide="plus" class="w-4 h-4"></i>
                                 <span>Beli</span>
                             </button>
@@ -344,103 +344,5 @@
                 cart: [],
                 products: [
                     // PROMO
-                    { id: 101, name: 'Promo Pay Day: Melon Elysia + Kelengkeng Bangkok', category: 'PROMO', weight: '1 Paket Bundling', price: 75000, stock: 3, status: 'MENIPIS' },
-                    { id: 102, name: 'Promo Pay Day: Melon Elysia (2 Buah)', category: 'PROMO', weight: '2 Buah Fresh Harvest', price: 85000, stock: 2, status: 'MENIPIS' },
-                    
-                    // MELON
-                    { id: 1, name: 'Melon Elysia Premium', category: 'MELON', weight: 'Per Kg', price: 46000, stock: 15, status: 'TERSEDIA' },
-                    { id: 2, name: 'Melon Midori Premium', category: 'MELON', weight: 'Per Kg', price: 46000, stock: 12, status: 'TERSEDIA' },
-                    { id: 3, name: 'Melon Greeniesweet', category: 'MELON', weight: 'Per Kg', price: 46000, stock: 10, status: 'TERSEDIA' },
-                    { id: 4, name: 'Melon Sarasuka', category: 'MELON', weight: 'Per Kg', price: 46000, stock: 8, status: 'TERSEDIA' },
-                    { id: 5, name: 'Melon Aruni', category: 'MELON', weight: 'Per Kg', price: 40000, stock: 3, status: 'MENIPIS' },
-                    { id: 6, name: 'Melon Emeralda', category: 'MELON', weight: 'Per Kg', price: 36000, stock: 14, status: 'TERSEDIA' },
-                    { id: 7, name: 'Melon Greeniegal', category: 'MELON', weight: 'Per Kg', price: 36000, stock: 9, status: 'TERSEDIA' },
-                    { id: 8, name: 'Melon Sunray', category: 'MELON', weight: 'Per Kg', price: 36000, stock: 7, status: 'TERSEDIA' },
-                    { id: 9, name: 'Melon Jaring (Isi 3 Random Personal)', category: 'MELON', weight: 'Per Jaring', price: 55000, stock: 5, status: 'TERSEDIA' },
-                    { id: 10, name: 'Melon Slice Fresh', category: 'MELON', weight: '-+ 300 Gram', price: 15000, stock: 20, status: 'TERSEDIA' },
-
-                    // SALAD & JUS
-                    { id: 11, name: 'Fruit Salad Mini', category: 'SALAD_JUICE', weight: 'Pack Mini', price: 15000, stock: 15, status: 'TERSEDIA' },
-                    { id: 12, name: 'Fruit Salad Personal', category: 'SALAD_JUICE', weight: 'Pack Personal', price: 30000, stock: 10, status: 'TERSEDIA' },
-                    { id: 13, name: 'Fruit Salad Sharing', category: 'SALAD_JUICE', weight: 'Pack Sharing', price: 45000, stock: 4, status: 'TERSEDIA' },
-                    { id: 14, name: 'Fruit Salad Family', category: 'SALAD_JUICE', weight: 'Pack Family', price: 60000, stock: 2, status: 'MENIPIS' },
-                    { id: 15, name: 'Jus Melon Murni', category: 'SALAD_JUICE', weight: 'Cup -+ 300ml', price: 10000, stock: 25, status: 'TERSEDIA' },
-                    { id: 16, name: 'Jus Mangga Fresh', category: 'SALAD_JUICE', weight: 'Cup -+ 300ml', price: 15000, stock: 18, status: 'TERSEDIA' },
-
-                    // BUAH SEGAR
-                    { id: 17, name: 'Anggur Hijau Shine Muscat', category: 'FRUIT', weight: '-+ 500 Gram', price: 35000, stock: 12, status: 'TERSEDIA' },
-                    { id: 18, name: 'Anggur Red Muscat', category: 'FRUIT', weight: '-+ 500 Gram', price: 81000, stock: 3, status: 'MENIPIS' },
-                    { id: 19, name: 'Kelengkeng Bangkok', category: 'FRUIT', weight: '-+ 500 Gram', price: 32500, stock: 14, status: 'TERSEDIA' },
-                    { id: 20, name: 'Alpukat Kendil', category: 'FRUIT', weight: 'Per Kg', price: 40000, stock: 8, status: 'TERSEDIA' },
-                    { id: 21, name: 'Mangga Harumanis Tua Pohon', category: 'FRUIT', weight: 'Per Kg', price: 35000, stock: 10, status: 'TERSEDIA' },
-                    { id: 22, name: 'Kiwi Gold Import', category: 'FRUIT', weight: 'Pack isi 5 Buah', price: 46000, stock: 6, status: 'TERSEDIA' },
-                    { id: 23, name: 'Nanas Honi Manis', category: 'FRUIT', weight: 'Per Buah', price: 25000, stock: 11, status: 'TERSEDIA' },
-
-                    // FROZEN
-                    { id: 24, name: 'Frozen Durian Montong Palu', category: 'FROZEN', weight: '-+ 500 Gram', price: 95000, stock: 5, status: 'TERSEDIA' },
-                    { id: 25, name: 'Frozen Pancake Durian', category: 'FROZEN', weight: 'Pack isi 8 Pcs', price: 15000, stock: 16, status: 'TERSEDIA' },
-                    { id: 26, name: 'Kentang Frozen Super', category: 'FROZEN', weight: '-+ 500 Gram', price: 20000, stock: 20, status: 'TERSEDIA' },
-                    { id: 27, name: 'Frozen Sweet Corn Pipil', category: 'FROZEN', weight: '-+ 500 Gram', price: 19000, stock: 15, status: 'TERSEDIA' }
-                ],
-                get filteredProducts() {
-                    return this.products.filter(p => {
-                        const matchCat = (this.activeCategory === 'ALL' || p.category === this.activeCategory);
-                        const matchStock = (this.stockFilter === 'ALL' || p.status === this.stockFilter);
-                        return matchCat && matchStock;
-                    });
-                },
-                setHub(hub) {
-                    this.selectedHub = hub;
-                },
-                addToCart(product) {
-                    const existing = this.cart.find(i => i.id === product.id);
-                    if (existing) {
-                        existing.qty++;
-                    } else {
-                        this.cart.push({ ...product, qty: 1 });
-                    }
-                    this.isCartOpen = true;
-                },
-                updateQty(id, delta) {
-                    const item = this.cart.find(i => i.id === id);
-                    if (item) {
-                        item.qty += delta;
-                        if (item.qty <= 0) {
-                            this.cart = this.cart.filter(i => i.id !== id);
-                        }
-                    }
-                },
-                get cartTotal() {
-                    return this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-                },
-                formatRupiah(amount) {
-                    return 'Rp ' + amount.toLocaleString('id-ID');
-                },
-                checkoutWhatsApp() {
-                    const phone = '6281234567890';
-                    let text = `*Pesanan Baru - The Farmhill Store (${this.selectedHub} Hub)*
-
-`;
-                    this.cart.forEach(item => {
-                        text += `• ${item.name} x${item.qty} = ${this.formatRupiah(item.price * item.qty)}
-`;
-                    });
-                    text += `
-*Total Pembayaran:* ${this.formatRupiah(this.cartTotal)}`;
-                    text += `
-*Cabang Pengiriman:* ${this.selectedHub} Hub`;
-                    text += `
-
-Mohon diproses pesanan saya ya, terima kasih!`;
-                    
-                    const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
-                    window.open(url, '_blank');
-                }
-            }
-        }
-    </script>
-    <script>
-        lucide.createIcons();
-    </script>
-</body>
-</html>
+                    { id: 101, name: 'Promo Pay Day: Melon Elysia + Kelengkeng Bangkok', category: 'PROMO', weight: '1 Paket Bundling', price: 75000, stock: 3, status: 'MENIPIS', image: 'https://images.unsplash.com/photo-1571575173700-afb9492e6a50?auto=format&fit=crop&w=600&q=80' },
+                    { id: 102, name: 'Promo Pay Day: Melon Elysia (2 Buah)', category: 'PROMO', weight: '2 Buah Fresh Harvest', price: 85000, stock: 2, status: 'MENIP
