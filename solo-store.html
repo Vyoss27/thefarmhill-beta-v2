@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Farmhill Store | Direct Selling (Semarang & Solo Hub)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        farmhill: {
+                            olive: '#3E5702',
+                            'olive-dark': '#213202',
+                            kraft: '#8D7560',
+                            gourd: '#FC6720',
+                            cream: '#F4F6F0',
+                            charcoal: '#2B3624'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>[x-cloak] { display: none !important; }</style>
+</head>
+<body class="bg-white text-farmhill-charcoal font-sans antialiased" x-data="farmhillApp()">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-farmhill-olive-dark text-white text-xs font-medium py-2.5 px-4 text-center">
+        <div class="container mx-auto flex justify-between items-center">
+            <span>🌱 <strong>PT Kebun Bumi Lestari:</strong> Dipanen Segar Setiap Hari dari Greenhouse Bandungan & Karanganyar</span>
+            <div class="hidden md:flex items-center space-x-4">
+                <span>Cabang: <strong x-text="selectedHub + ' Hub'" class="text-farmhill-gourd uppercase"></strong></span>
+                <span>•</span>
+                <span class="text-emerald-300">⚡ Free Delivery & Garansi Retur</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" @click="activeCategory = 'ALL'">
+                    <div class="w-10 h-10 bg-farmhill-olive rounded-xl flex items-center justify-center text-white font-extrabold text-xl shadow-md">FH</div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-tight text-farmhill-olive-dark block leading-none">THE FARMHILL</span>
+                        <span class="text-[9px] tracking-widest text-farmhill-kraft uppercase font-bold">Direct Selling Store</span>
+                    </div>
+                </div>
+
+                <!-- Navigation Categories -->
+                <nav class="hidden lg:flex space-x-1 bg-farmhill-cream p-1.5 rounded-2xl border border-farmhill-olive/10">
+                    <button type="button" @click="activeCategory = 'ALL'" :class="activeCategory === 'ALL' ? 'bg-farmhill-olive text-white shadow-sm' : 'text-gray-600 hover:text-farmhill-olive'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">Semua</button>
+                    <button type="button" @click="activeCategory = 'PROMO'" :class="activeCategory === 'PROMO' ? 'bg-farmhill-gourd text-white shadow-sm' : 'text-gray-600'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">🔥 Promo Pay Day</button>
+                    <button type="button" @click="activeCategory = 'MELON'" :class="activeCategory === 'MELON' ? 'bg-farmhill-olive text-white shadow-sm' : 'text-gray-600'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">🍈 Melon</button>
+                    <button type="button" @click="activeCategory = 'FRUIT'" :class="activeCategory === 'FRUIT' ? 'bg-farmhill-olive text-white shadow-sm' : 'text-gray-600'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">🍇 Buah Segar</button>
+                    <button type="button" @click="activeCategory = 'SALAD_JUICE'" :class="activeCategory === 'SALAD_JUICE' ? 'bg-farmhill-olive text-white shadow-sm' : 'text-gray-600'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">🩵 Salad & Jus</button>
+                    <button type="button" @click="activeCategory = 'FROZEN'" :class="activeCategory === 'FROZEN' ? 'bg-farmhill-olive text-white shadow-sm' : 'text-gray-600'" class="px-4 py-2 rounded-xl text-xs font-bold transition-all">🍟 Frozen</button>
+                </nav>
+
+                <!-- Controls -->
+                <div class="flex items-center space-x-3">
+                    <div class="relative" x-data="{ open: false }">
+                        <button type="button" @click="open = !open" class="flex items-center space-x-2 bg-farmhill-cream border border-farmhill-olive/20 text-farmhill-olive px-3.5 py-2 rounded-xl text-xs font-bold">
+                            <span>Hub: <strong x-text="selectedHub"></strong></span>
+                        </button>
+                        <div x-show="open" @click.outside="open = false" x-cloak class="absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-2xl border border-gray-100 py-2 z-50">
+                            <button type="button" @click="selectedHub = 'Semarang'; open = false" class="w-full text-left px-4 py-2 text-xs font-bold hover:bg-farmhill-cream">Semarang Hub</button>
+                            <button type="button" @click="selectedHub = 'Solo'; open = false" class="w-full text-left px-4 py-2 text-xs font-bold hover:bg-farmhill-cream">Solo Hub</button>
+                        </div>
+                    </div>
+
+                    <button type="button" @click="isCartOpen = true" class="relative bg-farmhill-olive text-white px-3.5 py-2 rounded-xl text-xs font-bold shadow-md">
+                        🛒 Keranjang (<span x-text="cart.reduce((t, i) => t + i.qty, 0)"></span>)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO BANNER -->
+    <section class="bg-farmhill-cream py-10 border-b border-gray-100">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7 space-y-4">
+                    <span class="inline-block bg-white px-3.5 py-1.5 rounded-full border border-farmhill-olive/20 text-farmhill-olive text-xs font-bold shadow-sm">Official Direct Selling Store</span>
+                    <h1 class="text-3xl sm:text-4xl font-extrabold text-farmhill-olive-dark leading-tight">Siap Antar Melon & Buah Segar <span class="text-farmhill-gourd">Langsung ke Rumahmu! 🚀</span></h1>
+                    <p class="text-gray-600 text-sm leading-relaxed">Panen segar hidroponik bebas pestisida. Garansi retur & free delivery area Semarang & Solo.</p>
+                </div>
+                <div class="lg:col-span-5 bg-gradient-to-br from-farmhill-olive to-farmhill-olive-dark rounded-3xl p-6 text-white shadow-xl">
+                    <span class="bg-farmhill-gourd text-white text-[10px] font-black uppercase px-3 py-1 rounded-full">PROMO PAY DAY SALE</span>
+                    <h3 class="text-xl font-extrabold mt-2">Bundling Panen Raya 🍈</h3>
+                    <div class="mt-3 space-y-2">
+                        <div class="bg-white/10 p-3 rounded-2xl flex justify-between items-center text-xs border border-white/10">
+                            <div>
+                                <div class="font-bold">Melon Elysia + Kelengkeng Bangkok</div>
+                                <div class="text-[10px] text-emerald-200">1 Melon + 500g Kelengkeng</div>
+                            </div>
+                            <button type="button" @click="addToCart({id: 101, name: 'Promo: Melon Elysia + Kelengkeng Bangkok', price: 75000, category: 'PROMO', weight: '1 Paket', status: 'TERSEDIA'})" class="bg-farmhill-gourd px-3 py-1.5 rounded-xl font-bold text-white">+ Rp 75rb</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATALOG GRID -->
+    <section class="py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                <h2 class="text-2xl font-extrabold text-farmhill-olive-dark">Katalog Ready Stock Hari Ini</h2>
+                <div class="flex items-center space-x-2">
+                    <span class="text-xs font-bold text-gray-500">Filter Stok:</span>
+                    <select x-model="stockFilter" class="bg-farmhill-cream border border-gray-200 text-xs font-bold rounded-xl px-3 py-2 text-farmhill-charcoal">
+                        <option value="ALL">Semua</option>
+                        <option value="TERSEDIA">Tersedia</option>
+                        <option value="MENIPIS">Stok Menipis 🔥</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <template x-for="product in filteredProducts" :key="product.id">
+                    <div class="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="bg-farmhill-cream text-farmhill-olive text-[10px] font-bold px-2.5 py-1 rounded-lg" x-text="product.category"></span>
+                                <span :class="product.status === 'MENIPIS' ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'" class="text-[10px] font-bold px-2.5 py-0.5 rounded-md" x-text="product.status"></span>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-sm leading-snug" x-text="product.name"></h3>
+                            <span class="text-xs text-gray-400 block mt-1" x-text="product.weight"></span>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between">
+                            <span class="text-sm font-extrabold text-farmhill-olive-dark" x-text="formatRupiah(product.price)"></span>
+                            <button type="button" @click="addToCart(product)" class="bg-farmhill-olive hover:bg-farmhill-olive-dark text-white px-3.5 py-2 rounded-xl text-xs font-bold shadow-sm transition-all">+ Beli</button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- CART DRAWER -->
+    <div x-show="isCartOpen" x-cloak class="relative z-50">
+        <div class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm" @click="isCartOpen = false"></div>
+        <div class="fixed inset-y-0 right-0 w-full max-w-md bg-white shadow-2xl flex flex-col justify-between p-6 z-50">
+            <div>
+                <div class="flex justify-between items-center border-b pb-4">
+                    <h3 class="font-bold text-lg text-farmhill-olive-dark">Keranjang Belanja</h3>
+                    <button type="button" @click="isCartOpen = false" class="text-gray-400 hover:text-gray-600">✕</button>
+                </div>
+                <div class="py-4 space-y-3 overflow-y-auto max-h-[60vh]">
+                    <template x-for="item in cart" :key="item.id">
+                        <div class="flex justify-between items-center border-b border-gray-50 pb-3">
+                            <div>
+                                <div class="font-bold text-xs text-gray-800" x-text="item.name"></div>
+                                <div class="text-xs text-farmhill-olive font-bold mt-0.5" x-text="formatRupiah(item.price)"></div>
+                            </div>
+                            <div class="flex items-center space-x-2 bg-gray-50 px-2.5 py-1 rounded-xl border border-gray-200">
+                                <button type="button" @click="updateQty(item.id, -1)" class="font-bold text-gray-600 px-1">-</button>
+                                <span class="text-xs font-bold px-1" x-text="item.qty"></span>
+                                <button type="button" @click="updateQty(item.id, 1)" class="font-bold text-gray-600 px-1">+</button>
+                            </div>
+                        </div>
+                    </template>
+                    <div x-show="cart.length === 0" class="text-center py-12 text-gray-400 text-xs font-bold">
+                        Keranjang masih kosong.
+                    </div>
+                </div>
+            </div>
+            <div class="border-t pt-4 space-y-3 bg-gray-50 p-4 rounded-2xl">
+                <div class="flex justify-between font-extrabold text-base text-gray-900">
+                    <span>Total:</span>
+                    <span class="text-farmhill-olive" x-text="formatRupiah(cartTotal)"></span>
+                </div>
+                <button type="button" @click="checkoutWA()" :disabled="cart.length === 0" class="w-full bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white py-3 rounded-xl font-bold flex items-center justify-center space-x-2 transition-all shadow-md">
+                    <span>Pesan via WhatsApp Direct</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('farmhillApp', () => ({
+                selectedHub: 'Semarang',
+                activeCategory: 'ALL',
+                stockFilter: 'ALL',
+                isCartOpen: false,
+                cart: [],
+                products: [
+                    { id: 101, name: 'Promo: Melon Elysia + Kelengkeng Bangkok', category: 'PROMO', weight: '1 Paket', price: 75000, status: 'TERSEDIA' },
+                    { id: 1, name: 'Melon Elysia Premium', category: 'MELON', weight: 'Per Kg', price: 46000, status: 'TERSEDIA' },
+                    { id: 2, name: 'Melon Midori Premium', category: 'MELON', weight: 'Per Kg', price: 46000, status: 'TERSEDIA' },
+                    { id: 3, name: 'Melon Greeniesweet', category: 'MELON', weight: 'Per Kg', price: 46000, status: 'TERSEDIA' },
+                    { id: 4, name: 'Melon Aruni', category: 'MELON', weight: 'Per Kg', price: 40000, status: 'MENIPIS' },
+                    { id: 5, name: 'Fruit Salad Personal', category: 'SALAD_JUICE', weight: 'Pack Personal', price: 30000, status: 'TERSEDIA' },
+                    { id: 6, name: 'Jus Melon Murni', category: 'SALAD_JUICE', weight: 'Cup 300ml', price: 10000, status: 'TERSEDIA' },
+                    { id: 7, name: 'Anggur Hijau Shine Muscat', category: 'FRUIT', weight: '500 Gram', price: 35000, status: 'TERSEDIA' },
+                    { id: 8, name: 'Frozen Durian Montong Palu', category: 'FROZEN', weight: '500 Gram', price: 95000, status: 'TERSEDIA' }
+                ],
+                get filteredProducts() {
+                    return this.products.filter(p => {
+                        const matchCat = (this.activeCategory === 'ALL' || p.category === this.activeCategory);
+                        const matchStock = (this.stockFilter === 'ALL' || p.status === this.stockFilter);
+                        return matchCat && matchStock;
+                    });
+                },
+                addToCart(p) {
+                    let item = this.cart.find(i => i.id === p.id);
+                    if (item) item.qty++;
+                    else this.cart.push({ ...p, qty: 1 });
+                    this.isCartOpen = true;
+                },
+                updateQty(id, delta) {
+                    let item = this.cart.find(i => i.id === id);
+                    if (item) {
+                        item.qty += delta;
+                        if (item.qty <= 0) this.cart = this.cart.filter(i => i.id !== id);
+                    }
+                },
+                get cartTotal() { 
+                    return this.cart.reduce((s, i) => s + (i.price * i.qty), 0); 
+                },
+                formatRupiah(n) { 
+                    return 'Rp ' + n.toLocaleString('id-ID'); 
+                },
+                checkoutWA() {
+                    let msg = `*Pesanan The Farmhill Store (${this.selectedHub} Hub)*\n\n`;
+                    this.cart.forEach(i => msg += `• ${i.name} x${i.qty} = ${this.formatRupiah(i.price * i.qty)}\n`);
+                    msg += `\n*Total Pembayaran:* ${this.formatRupiah(this.cartTotal)}`;
+                    window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(msg)}`, '_blank');
+                }
+            }));
+        });
+    </script>
+</body>
+</html>
