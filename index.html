@@ -1,211 +1,206 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
     <title>The Farmhill | PT Kebun Bumi Lestari - Modern Agrotech & Hydroponics</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Plus Jakarta Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Alpine.js & Lucide Icons -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        farmhill: {
-                            olive: '#3E5702',
-                            'olive-dark': '#213202',
-                            'olive-light': '#587B03',
-                            kraft: '#8D7560',
-                            gourd: '#FC6720',
-                            cream: '#F4F6F0',
-                            charcoal: '#2B3624'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                    }
-                }
-            }
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="The Farmhill, PT Kebun Bumi Lestari, Hidroponik Semarang Solo, Melon Premium" name="keywords">
+    <meta content="Pusat Pertanian Modern & Hidroponik Terintegrasi di Jawa Tengah" name="description">
+
+    <!-- Favicons -->
+    <link href="img/favicon.png" rel="icon">
+    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
+
+    <!-- Bootstrap CSS File -->
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Libraries CSS Files -->
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Main Stylesheet File -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        /* Tambahan styling kustom untuk Hub Selector & Card Direct Selling */
+        .store-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease-in-out;
+            border-top: 5px solid #3E5702;
+            margin-bottom: 30px;
         }
-    </script>
-    <style>[x-cloak] { display: none !important; }</style>
+        .store-card.solo {
+            border-top-color: #FC6720;
+        }
+        .store-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.12);
+        }
+    </style>
 </head>
-<body class="bg-white text-farmhill-charcoal font-sans antialiased" x-data="corporateApp()">
+<body>
 
-    <!-- TOP ANNOUNCEMENT BAR -->
-    <div class="bg-farmhill-olive-dark text-white text-xs font-medium py-2.5 px-4 text-center">
-        <div class="container mx-auto flex justify-between items-center">
-            <span>🌱 <strong>PT Kebun Bumi Lestari:</strong> Modern Precision Farming & Hydroponic Excellence in Central Java</span>
-            <a href="#store-selector" class="text-farmhill-gourd font-bold underline hover:text-white">Pilih Toko Direct Selling 🛒</a>
+    <!--========================== Header ============================-->
+    <header id="header" style="background: rgba(0, 0, 0, 0.85); padding: 15px 0; position: fixed; top: 0; left: 0; right: 0; z-index: 999;">
+        <div class="container">
+            <div id="logo" class="pull-left">
+                <h1><a href="#intro" class="scrollto" style="color: #fff; font-weight: 700; font-family: 'Montserrat', sans-serif;">THE FARMHILL</a></h1>
+            </div>
+            <nav id="nav-menu-container">
+                <ul class="nav-menu" style="list-style: none; margin: 0; padding: 0; display: flex; gap: 20px; align-items: center;">
+                    <li class="menu-active"><a href="#intro" style="color: #fff;">Home</a></li>
+                    <li><a href="#services" style="color: #fff;">About</a></li>
+                    <li><a href="#melon" style="color: #fff;">Greenhouse</a></li>
+                    <li><a href="#store-selector" style="color: #FC6720; font-weight: bold;">Direct Store 🛒</a></li>
+                    <li><a href="#contact" style="color: #fff;">Contact</a></li>
+                </ul>
+            </nav>
         </div>
-    </div>
+    </header><!-- #header -->
 
-    <!-- MAIN NAVBAR -->
-    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <div class="flex items-center space-x-3 cursor-pointer" @click="window.scrollTo({top: 0, behavior: 'smooth'})">
-                    <div class="w-10 h-10 bg-farmhill-olive rounded-xl flex items-center justify-center text-white font-extrabold text-xl shadow-md">FH</div>
-                    <div>
-                        <span class="text-xl font-extrabold tracking-tight text-farmhill-olive-dark block leading-none">THE FARMHILL</span>
-                        <span class="text-[9px] tracking-widest text-farmhill-kraft uppercase font-bold">PT Kebun Bumi Lestari</span>
-                    </div>
+    <!--========================== Intro Section ============================-->
+    <section id="intro" style="background: #f4f6f0; padding-top: 120px; padding-bottom: 60px;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 wow fadeInUp">
+                    <img src="img/logo.png" class="rounded mx-auto d-block img-fluid" style="background:white; border-radius: 40%; max-width: 250px;">
                 </div>
-
-                <!-- Navigation Links -->
-                <nav class="hidden md:flex space-x-8 text-xs font-bold text-gray-600">
-                    <a href="#about" class="hover:text-farmhill-olive transition-colors">Tentang Kami</a>
-                    <a href="#technology" class="hover:text-farmhill-olive transition-colors">Teknologi Greenhouse</a>
-                    <a href="#b2b" class="hover:text-farmhill-olive transition-colors">Layanan B2B</a>
-                    <a href="#store-selector" class="hover:text-farmhill-olive transition-colors">Direct Selling Store</a>
-                </nav>
-
-                <!-- CTA Button -->
-                <div>
-                    <a href="#store-selector" class="bg-farmhill-olive hover:bg-farmhill-olive-dark text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow-md transition-all flex items-center space-x-2">
-                        <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-                        <span>Belanja Ready Stock</span>
-                    </a>
+                <div class="col-md-6 wow fadeInUp" style="margin-top: 5%;">
+                    <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 700; color: #213202; font-size: 32pt;">PT KEBUN BUMI LESTARI</h2>
+                    <p style="font-size: 14pt; color: #555; margin-top: 15px;">Pelopor pertanian hidroponik modern, penyedia buah premium, dan solusi agrotech terintegrasi di Jawa Tengah.</p>
+                    <a href="#store-selector" class="btn btn-success btn-lg" style="background-color: #3E5702; border: none; margin-top: 20px; padding: 12px 30px; font-weight: bold;">Pilih Toko Direct Selling 🚀</a>
                 </div>
             </div>
         </div>
-    </header>
+    </section><!-- #intro -->
 
-    <!-- HERO SECTION -->
-    <section class="relative bg-farmhill-cream py-20 lg:py-28 overflow-hidden">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-12 gap-12 items-center">
-                <div class="lg:col-span-7 space-y-6">
-                    <div class="inline-flex items-center space-x-2 bg-white px-3.5 py-1.5 rounded-full border border-farmhill-olive/20 text-farmhill-olive text-xs font-bold shadow-sm">
-                        <span class="w-2 h-2 rounded-full bg-farmhill-gourd animate-ping"></span>
-                        <span>Top of Mind Modern Farming di Jawa Tengah</span>
+    <main id="main">
+
+        <!--========================== Services Section ============================-->
+        <section id="services" style="padding: 60px 0;">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 col-md-4 box wow bounceInUp" data-wow-duration="1.4s">
+                        <img src="img/LEAF1.gif" class="rounded mx-auto d-block img-fluid" style="background:white; border-radius: 40%; max-width: 200px;">
                     </div>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-farmhill-olive-dark leading-tight tracking-tight">
-                        Masa Depan Pertanian Modern <span class="text-farmhill-gourd">Langsung dari Greenhouse.</span>
-                    </h1>
-                    <p class="text-gray-600 text-base leading-relaxed max-w-xl">
-                        PT Kebun Bumi Lestari mengembangkan budidaya hidroponik presisi tinggi untuk menghasilkan melon premium bersertifikasi, sayuran segar higienis, serta solusi agrotech profesional.
-                    </p>
-                    <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 pt-2">
-                        <a href="#store-selector" class="bg-farmhill-olive hover:bg-farmhill-olive-dark text-white font-bold px-8 py-4 rounded-xl text-center shadow-lg transition-all flex items-center justify-center space-x-2">
-                            <span>Pilih Hub Belanja (Semarang / Solo)</span>
-                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </a>
-                        <a href="#b2b" class="bg-white hover:bg-gray-50 border border-farmhill-kraft/30 text-farmhill-charcoal font-bold px-8 py-4 rounded-xl text-center transition-all">
-                            Mitra B2B & Korporat
-                        </a>
+                    <div class="col-lg-8 col-md-8 box wow bounceInUp" data-wow-duration="1.4s">
+                        <h1 class="title" style="font-size: 40pt; font-family: 'Montserrat', sans-serif; color: #3E5702;">TASTE BETTER, LIVE HEALTHIER</h1>
+                        <p style="color: #666; font-size: 12pt; margin-top: 15px;">Setiap produk dipanen langsung dari greenhouse dengan kadar kemanisan optimal (Brix Tinggi) dan dijamin 100% bebas pestisida berbahaya.</p>
                     </div>
                 </div>
+            </div>
+        </section><!-- #services -->
 
-                <div class="lg:col-span-5">
-                    <div class="bg-white rounded-3xl p-8 shadow-2xl border border-gray-100 relative space-y-4">
-                        <div class="w-12 h-12 bg-farmhill-cream rounded-2xl flex items-center justify-center text-farmhill-olive">
-                            <i data-lucide="sprout" class="w-6 h-6"></i>
+        <!--========================== Greenhouse Section ============================-->
+        <section id="melon" style="background: #fafafa; padding: 60px 0;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center" style="margin-bottom: 40px;">
+                        <h1 style="font-size: 35pt; color:black; font-family: 'Montserrat', sans-serif;"> <b> Why Grow in a Greenhouse? </b></h1>
+                        <p style="color: #777;">Teknologi climate control & precision nutrition untuk kualitas panen terbaik.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="img">
+                            <img src="img/1.png" alt="" class="img-fluid rounded shadow-sm">
                         </div>
-                        <h3 class="text-xl font-bold text-farmhill-olive-dark">Komitmen Kualitas The Farmhill</h3>
-                        <p class="text-xs text-gray-500 leading-relaxed">
-                            Setiap produk melewati uji tingkat kemanisan (Brix meter), bebas pestisida kimia berbahaya, dan dipanen pada tingkat kematangan optimal.
-                        </p>
-                        <div class="pt-2 border-t border-gray-100 grid grid-cols-2 gap-4 text-center">
-                            <div class="bg-farmhill-cream p-3 rounded-2xl">
-                                <div class="text-lg font-black text-farmhill-olive">14-16</div>
-                                <div class="text-[10px] text-gray-500 font-bold uppercase">Brix Sweetness Level</div>
-                            </div>
-                            <div class="bg-farmhill-cream p-3 rounded-2xl">
-                                <div class="text-lg font-black text-farmhill-gourd">0%</div>
-                                <div class="text-[10px] text-gray-500 font-bold uppercase">Pestisida Berbahaya</div>
-                            </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="img">
+                            <img src="img/2.png" alt="" class="img-fluid rounded shadow-sm">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="img">
+                            <img src="img/3.png" alt="" class="img-fluid rounded shadow-sm">
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- HUB & STORE SELECTOR (SHORTCUT TO DIRECT SELLING) -->
-    <section id="store-selector" class="py-20 bg-white">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-4xl">
-            <span class="text-xs font-extrabold text-farmhill-gourd tracking-widest uppercase">The Farmhill Direct Selling Store</span>
-            <h2 class="text-3xl font-extrabold text-farmhill-olive-dark mt-2">Pilih Cabang Pengiriman Terdekatmu 🚀</h2>
-            <p class="text-gray-600 text-sm mt-2 max-w-xl mx-auto">
-                Untuk memastikan kesegaran buah dan sayur tetap terjaga hingga sampai di rumah, silakan pilih hub operasional wilayah Anda:
-            </p>
+        <!--========================== DIRECT SELLING STORE SELECTOR (SHORTCUT) ============================-->
+        <section id="store-selector" style="padding: 80px 0; background: #ffffff;">
+            <div class="container text-center">
+                <span style="color: #FC6720; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">Direct Selling Ecosystem</span>
+                <h2 style="font-size: 36pt; font-family: 'Montserrat', sans-serif; font-weight: 700; color: #213202; margin-top: 10px;">Pilih Cabang Pengiriman Toko 🚀</h2>
+                <p style="color: #666; font-size: 13pt; margin-bottom: 50px;">Silakan pilih hub operasional terdekat untuk melihat katalog ready stock dan pemesanan instan:</p>
 
-            <div class="grid md:grid-cols-2 gap-8 mt-12">
-                
-                <!-- SEMARANG HUB CARD -->
-                <div class="bg-farmhill-cream rounded-3xl p-8 border-2 border-farmhill-olive/20 hover:border-farmhill-olive shadow-xl transition-all flex flex-col justify-between text-left group">
-                    <div class="space-y-4">
-                        <div class="w-14 h-14 bg-farmhill-olive text-white rounded-2xl flex items-center justify-center font-black text-xl shadow-md group-hover:scale-110 transition-transform">
-                            SMG
-                        </div>
-                        <div>
-                            <span class="bg-farmhill-olive/10 text-farmhill-olive text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">Greenhouse Bandungan & Gunungpati</span>
-                            <h3 class="text-2xl font-extrabold text-farmhill-olive-dark mt-2">Semarang Hub</h3>
-                            <p class="text-xs text-gray-600 mt-2 leading-relaxed">
-                                Melayani pengiriman instan & same-day untuk area Semarang Kota, Ungaran, Kendal, Demak, dan sekitarnya.
+                <div class="row text-left">
+                    <!-- SEMARANG STORE CARD -->
+                    <div class="col-md-6">
+                        <div class="store-card">
+                            <span class="badge" style="background-color: #3E5702; font-size: 10pt; padding: 8px 15px; margin-bottom: 15px; display: inline-block;">Bandungan & Gunungpati Hub</span>
+                            <h3 style="font-weight: 700; font-size: 24pt; color: #213202; margin-top: 5px;">Semarang Store</h3>
+                            <p style="color: #666; font-size: 11pt; line-height: 1.6; margin: 15px 0 25px 0;">
+                                Melayani pengiriman cepat (Same-Day / Instant) untuk area Semarang Kota, Ungaran, Kendal, Demak, dan sekitarnya.
                             </p>
+                            <a href="semarang-store.html" class="btn btn-success btn-block" style="background-color: #3E5702; border: none; padding: 12px; font-weight: bold; font-size: 12pt;">Buka Katalog Semarang Store ➔</a>
                         </div>
                     </div>
-                    <div class="mt-8 pt-6 border-t border-farmhill-olive/10 flex items-center justify-between">
-                        <span class="text-xs font-bold text-gray-500">⚡ Ready Stock Tersedia</span>
-                        <!-- Link menuju halaman direct selling Semarang -->
-                        <a href="semarang-store.html" class="bg-farmhill-olive hover:bg-farmhill-olive-dark text-white px-6 py-3 rounded-xl text-xs font-bold shadow-md transition-all flex items-center space-x-2">
-                            <span>Buka Toko Semarang</span>
-                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </a>
-                    </div>
-                </div>
 
-                <!-- SOLO HUB CARD -->
-                <div class="bg-farmhill-cream rounded-3xl p-8 border-2 border-farmhill-gourd/20 hover:border-farmhill-gourd shadow-xl transition-all flex flex-col justify-between text-left group">
-                    <div class="space-y-4">
-                        <div class="w-14 h-14 bg-farmhill-gourd text-white rounded-2xl flex items-center justify-center font-black text-xl shadow-md group-hover:scale-110 transition-transform">
-                            SLO
-                        </div>
-                        <div>
-                            <span class="bg-orange-100 text-orange-800 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">Greenhouse Karanganyar</span>
-                            <h3 class="text-2xl font-extrabold text-farmhill-olive-dark mt-2">Solo Hub</h3>
-                            <p class="text-xs text-gray-600 mt-2 leading-relaxed">
-                                Melayani pengiriman cepat khusus wilayah Surakarta (Solo), Karanganyar, Sukoharjo, Boyolali, dan sekitarnya.
+                    <!-- SOLO STORE CARD -->
+                    <div class="col-md-6">
+                        <div class="store-card solo">
+                            <span class="badge" style="background-color: #FC6720; font-size: 10pt; padding: 8px 15px; margin-bottom: 15px; display: inline-block;">Karanganyar Hub</span>
+                            <h3 style="font-weight: 700; font-size: 24pt; color: #213202; margin-top: 5px;">Solo Store</h3>
+                            <p style="color: #666; font-size: 11pt; line-height: 1.6; margin: 15px 0 25px 0;">
+                                Melayani pengiriman buah segar khusus wilayah Surakarta (Solo), Karanganyar, Sukoharjo, Boyolali, dan sekitarnya.
                             </p>
+                            <a href="solo-store.html" class="btn btn-warning btn-block" style="background-color: #FC6720; border: none; padding: 12px; font-weight: bold; font-size: 12pt; color: #fff;">Buka Katalog Solo Store ➔</a>
                         </div>
                     </div>
-                    <div class="mt-8 pt-6 border-t border-orange-500/10 flex items-center justify-between">
-                        <span class="text-xs font-bold text-gray-500">⚡ Ready Stock Tersedia</span>
-                        <!-- Link menuju halaman direct selling Solo -->
-                        <a href="solo-store.html" class="bg-farmhill-gourd hover:bg-orange-600 text-white px-6 py-3 rounded-xl text-xs font-bold shadow-md transition-all flex items-center space-x-2">
-                            <span>Buka Toko Solo</span>
-                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </a>
+                </div>
+            </div>
+        </section>
+
+        <!--========================== Contact / Hubungi Kami Section ============================-->
+        <section id="contact" style="background: #f4f6f0; padding: 60px 0;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center" style="margin-bottom: 30px;">
+                        <h1 style="font-size: 30pt; color:black; font-family: 'Montserrat', sans-serif;"> <b>HUBUNGI KAMI</b></h1>
+                    </div>
+                    <div class="col-md-6 text-center" style="background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 2px 15px rgba(0,0,0,0.05);">
+                        <h3 style="color: #3E5702; font-weight: bold;">PT KBL (Kebun Bumi Lestari)</h3>
+                        <p style="color: #666; margin-top: 10px;">Pusat Pengelolaan Greenhouse & Agrotech</p>
+                    </div>
+                    <div class="col-md-6 text-center" style="background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 2px 15px rgba(0,0,0,0.05);">
+                        <h3 style="color: #FC6720; font-weight: bold;">PT GSI / Direct Selling</h3>
+                        <p style="color: #666; margin-top: 10px;">Pusat Distribusi & Pemasaran Langsung</p>
                     </div>
                 </div>
-
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-farmhill-olive-dark text-white py-12">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs space-y-3">
-            <div class="font-extrabold text-sm tracking-wider">PT KEBUN BUMI LESTARI — THE FARMHILL</div>
-            <p class="text-gray-400">Pusat Pertanian Modern & Hidroponik Terintegrasi di Jawa Tengah.</p>
-            <div class="text-[10px] text-gray-500 pt-4 border-t border-white/10">© 2026 The Farmhill Direct Selling System. All rights reserved.</div>
-        </div>
-    </footer>
+    </main>
 
-    <script>
-        function corporateApp() {
-            return {}
-        }
-        lucide.createIcons();
-    </script>
+    <a href="#" class="back-to-top" style="background: #3E5702;"><i class="fa fa-chevron-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/jquery/jquery-migrate.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/superfish/hoverIntent.js"></script>
+    <script src="lib/superfish/superfish.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/isotope/isotope.pkgd.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
+    <script src="lib/touchSwipe/jquery.touchSwipe.min.js"></script>
+
+    <!-- Template Main Javascript File -->
+    <script src="js/main.js"></script>
 </body>
 </html>
