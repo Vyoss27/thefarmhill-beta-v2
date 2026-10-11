@@ -28,7 +28,6 @@
     <link href="css/style.css" rel="stylesheet">
 
     <style>
-        /* Perbaikan CSS agar tidak bentrok dengan style.css bawaan template */
         body {
             font-family: 'Open Sans', sans-serif;
             color: #444;
@@ -76,6 +75,7 @@
             border-radius: 10px;
             display: block;
             text-align: center;
+            text-decoration: none !important;
         }
         .custom-btn-solo {
             background-color: #FC6720 !important;
@@ -86,16 +86,7 @@
             border-radius: 10px;
             display: block;
             text-align: center;
-        }
-        .fallback-logo {
-            font-size: 36px;
-            font-weight: 800;
-            color: #3E5702;
-            background: #fff;
-            padding: 30px;
-            border-radius: 50%;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            text-decoration: none !important;
         }
     </style>
 </head>
@@ -124,14 +115,14 @@
         <div class="container">
             <div class="row align-items-center" style="display: flex; align-items: center; flex-wrap: wrap;">
                 <div class="col-md-5 text-center wow fadeInUp">
-                    <!-- Jika gambar logo.png belum ada, teks pengganti otomatis muncul agar tidak error/broken image -->
-                    <img src="img/logo.png" class="img-fluid rounded" style="max-width: 200px; background: white; padding: 10px;" onerror="this.style.display='none'; document.getElementById('fallback-logo-box').style.display='inline-block';">
-                    <div id="fallback-logo-box" class="fallback-logo" style="display: none;">🌱 TF</div>
+                    <!-- Menggunakan foto ilustrasi agrotech/greenhouse berkualitas dari Unsplash -->
+                    <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=600&auto=format&fit=crop&q=80" class="img-fluid rounded shadow" style="border-radius: 20px; max-height: 280px; object-fit: cover;" alt="The Farmhill Greenhouse">
                 </div>
                 <div class="col-md-7 wow fadeInUp" style="margin-top: 20px;">
-                    <h2 style="font-weight: 700; color: #213202; font-size: 32pt; margin-bottom: 15px;">PT KEBUN BUMI LESTARI</h2>
-                    <p style="font-size: 13pt; color: #555; line-height: 1.6;">Pelopor pertanian hidroponik modern, penyedia buah premium, dan solusi agrotech terintegrasi di Jawa Tengah.</p>
-                    <a href="#store-selector" class="btn btn-lg" style="background-color: #3E5702; color: #white; border: none; margin-top: 15px; padding: 12px 30px; font-weight: bold; border-radius: 10px; color: #fff;">Pilih Toko Direct Selling 🚀</a>
+                    <span style="background: #3E5702; color: white; padding: 5px 12px; font-size: 10pt; font-weight: bold; border-radius: 20px; text-transform: uppercase;">PT Kebun Bumi Lestari</span>
+                    <h2 style="font-weight: 700; color: #213202; font-size: 30pt; margin-top: 10px; margin-bottom: 15px;">PERTANIAN HIDROPONIK & BUAH PREMIUM</h2>
+                    <p style="font-size: 12pt; color: #555; line-height: 1.6;">Pelopor agritech modern, penyedia melon hidroponik manis berkualitas tinggi, serta solusi pertanian terintegrasi di Jawa Tengah.</p>
+                    <a href="#store-selector" class="btn btn-lg" style="background-color: #3E5702; border: none; margin-top: 15px; padding: 12px 30px; font-weight: bold; border-radius: 10px; color: #fff;">Pilih Toko Direct Selling 🚀</a>
                 </div>
             </div>
         </div>
@@ -144,11 +135,12 @@
             <div class="container">
                 <div class="row align-items-center" style="display: flex; align-items: center; flex-wrap: wrap;">
                     <div class="col-lg-4 col-md-4 text-center wow bounceInUp">
-                        <img src="img/LEAF1.gif" class="img-fluid" style="max-width: 160px;" onerror="this.src='https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=300&auto=format&fit=crop&q=80';">
+                        <!-- Gambar daun/tanaman hidroponik segar dari Unsplash -->
+                        <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=500&auto=format&fit=crop&q=80" class="img-fluid rounded-circle shadow" style="max-width: 180px; height: 180px; object-fit: cover;" alt="Fresh Hydroponic">
                     </div>
                     <div class="col-lg-8 col-md-8 wow bounceInUp">
-                        <h1 class="title" style="font-size: 34pt; font-weight: 800; color: #3E5702; line-height: 1.2;">TASTE BETTER, LIVE HEALTHIER</h1>
-                        <p style="color: #666; font-size: 12pt; margin-top: 15px; line-height: 1.6;">Setiap produk dipanen langsung dari greenhouse dengan kadar kemanisan optimal (Brix Tinggi) dan dijamin 100% bebas pestisida berbahaya.</p>
+                        <h1 class="title" style="font-size: 32pt; font-weight: 800; color: #3E5702; line-height: 1.2;">TASTE BETTER, LIVE HEALTHIER</h1>
+                        <p style="color: #666; font-size: 12pt; margin-top: 15px; line-height: 1.6;">Setiap produk dipanen langsung dari greenhouse modern dengan tingkat kemanisan optimal (Brix Tinggi) serta terjamin 100% bebas pestisida berbahaya.</p>
                     </div>
                 </div>
             </div>
@@ -163,13 +155,16 @@
                         <p style="color: #777; font-size: 11pt;">Teknologi climate control & precision nutrition untuk kualitas panen terbaik.</p>
                     </div>
                     <div class="col-md-4 text-center" style="margin-bottom: 20px;">
-                        <img src="img/1.png" alt="Greenhouse 1" class="img-fluid rounded shadow-sm" style="border-radius: 12px;" onerror="this.src='https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=500&auto=format&fit=crop&q=80';">
+                        <img src="https://images.unsplash.com/photo-1592417817098-8f3d691a4bf5?w=600&auto=format&fit=crop&q=80" alt="Greenhouse Technology" class="img-fluid rounded shadow-sm" style="border-radius: 12px; height: 220px; width: 100%; object-fit: cover;">
+                        <h4 style="margin-top: 15px; font-weight: bold; color: #3E5702;">Precision Climate</h4>
                     </div>
                     <div class="col-md-4 text-center" style="margin-bottom: 20px;">
-                        <img src="img/2.png" alt="Greenhouse 2" class="img-fluid rounded shadow-sm" style="border-radius: 12px;" onerror="this.src='https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=500&auto=format&fit=crop&q=80';">
+                        <img src="https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?w=600&auto=format&fit=crop&q=80" alt="Melon Hidroponik" class="img-fluid rounded shadow-sm" style="border-radius: 12px; height: 220px; width: 100%; object-fit: cover;">
+                        <h4 style="margin-top: 15px; font-weight: bold; color: #3E5702;">Hydroponic Melon</h4>
                     </div>
                     <div class="col-md-4 text-center" style="margin-bottom: 20px;">
-                        <img src="img/3.png" alt="Greenhouse 3" class="img-fluid rounded shadow-sm" style="border-radius: 12px;" onerror="this.src='https://images.unsplash.com/photo-1592417817098-8f3d691a4bf5?w=500&auto=format&fit=crop&q=80';">
+                        <img src="https://images.unsplash.com/photo-1524593987114-1f9518003f44?w=600&auto=format&fit=crop&q=80" alt="Fresh Harvest" class="img-fluid rounded shadow-sm" style="border-radius: 12px; height: 220px; width: 100%; object-fit: cover;">
+                        <h4 style="margin-top: 15px; font-weight: bold; color: #3E5702;">Guaranteed Fresh</h4>
                     </div>
                 </div>
             </div>
